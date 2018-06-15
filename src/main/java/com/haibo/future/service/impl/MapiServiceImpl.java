@@ -2,8 +2,11 @@ package com.haibo.future.service.impl;
 
 import com.haibo.future.model.MapiInfo;
 import com.haibo.future.service.MapiService;
+import com.haibo.future.util.HttpHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.io.IOException;
 
 @Service
 public class MapiServiceImpl implements MapiService{
@@ -19,8 +22,21 @@ public class MapiServiceImpl implements MapiService{
     }
 
     @Override
-    public byte[] sendHttpRequest(MapiInfo mapiInfo) {
+    public String sendHttpRequest(MapiInfo mapiInfo) {
         validate(mapiInfo);
-        return new byte[0];
+        String response = process(mapiInfo);
+        return response;
+    }
+
+    private String process(MapiInfo mapiInfo) {
+        String msg = "";
+        if (mapiInfo.getServiceName().equals("test")){
+            try {
+                msg = HttpHelper.httpReq("http://localhost:8080/test/hiSql");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return msg;
     }
 }

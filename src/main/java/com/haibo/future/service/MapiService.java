@@ -6,5 +6,5 @@ public interface MapiService {
     //验证
     void validate(MapiInfo mapiInfo);
     //发送请求
-    byte[] sendHttpRequest(MapiInfo mapiInfo);
+    String sendHttpRequest(MapiInfo mapiInfo);
 }
